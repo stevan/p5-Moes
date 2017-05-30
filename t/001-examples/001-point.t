@@ -22,18 +22,8 @@ TODO:
     package Point;
     use Moes;
 
-    has x => ( is => 'ro', default => sub { 0 } );
-    has y => ( is => 'ro', default => sub { 0 } );
-
-    sub set_x {
-        my ($self, $x) = @_;
-        $self->{x} = $x;
-    }
-
-    sub set_y {
-        my ($self, $y) = @_;
-        $self->{y} = $y;
-    }
+    has x => ( is => 'ro', writer => 'set_x', default => sub { 0 } );
+    has y => ( is => 'ro', writer => 'set_y', default => sub { 0 } );
 
     sub clear {
         my ($self) = @_;
@@ -54,12 +44,7 @@ TODO:
 
     extends 'Point';
 
-    has z => ( is => 'ro', default => sub { 0 } );
-
-    sub set_z {
-        my ($self, $z) = @_;
-        $self->{z} = $z;
-    }
+    has z => ( is => 'ro', writer => 'set_z', default => sub { 0 } );
 
     sub clear {
         my ($self) = @_;
