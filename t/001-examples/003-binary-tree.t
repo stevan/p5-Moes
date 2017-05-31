@@ -67,10 +67,9 @@ Make the parent a weak-ref ... it is not right now.
 
 {
     package MyBinaryTree;
-    use strict;
-    use warnings;
+    use Moes;
 
-    our @ISA; BEGIN { @ISA = ('BinaryTree') }
+    extends 'BinaryTree';
 }
 
 {

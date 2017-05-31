@@ -72,6 +72,14 @@ TODO:
         '... got the expected linear isa'
     );
 
+    if ( my $meta = eval { Point->meta } ) {
+        is_deeply(
+            $meta->mro,
+            [ 'Point', 'UNIVERSAL::Object' ],
+            '... got the expected mro'
+        );
+    }
+
     is $p->x, 0, '... got the default value for x';
     is $p->y, 0, '... got the default value for y';
 
@@ -95,6 +103,14 @@ TODO:
         [ 'Point3D', 'Point', 'UNIVERSAL::Object' ],
         '... got the expected linear isa'
     );
+
+    if ( my $meta = eval { Point3D->meta } ) {
+        is_deeply(
+            $meta->mro,
+            [ 'Point3D', 'Point', 'UNIVERSAL::Object' ],
+            '... got the expected mro'
+        );
+    }
 
     is $p3d->z, 0, '... got the default value for z';
 

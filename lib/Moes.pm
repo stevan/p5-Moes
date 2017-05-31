@@ -9,7 +9,7 @@ our $AUTHORITY = 'cpan:STEVAN';
 
 use UNIVERSAL::Object;
 
-our @EXPORT = ('extends', 'has');
+our @EXPORT = ('meta', 'extends', 'has');
 
 sub import {
     shift;
@@ -23,6 +23,11 @@ sub import {
 
     no strict 'refs';
     @{$into.'::ISA'} = ('UNIVERSAL::Object');
+
+    *{$into.'::meta'} = sub {
+        require MOP;
+        return MOP::Class->new( name => $into );
+    };
 
     *{$into.'::extends'} = sub {
         my @supers = @_;
