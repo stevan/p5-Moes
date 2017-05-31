@@ -108,6 +108,33 @@ __END__
 
 =pod
 
+=head1 SYNOPSIS
+
+    package Point;
+    use Moes;
+
+    has 'x' => (is => 'rw', default => sub { 0 });
+    has 'y' => (is => 'rw', default => sub { 0 });
+
+    sub clear {
+        my $self = shift;
+        $self->x(0);
+        $self->y(0);
+    }
+
+    package Point3D;
+    use Moes;
+
+    extends 'Point';
+
+    has 'z' => (is => 'rw', default => sub { 0 });
+
+    sub clear {
+        my $self = shift;
+        $self->next::method;
+        $self->z(0);
+    }
+
 =head1 DESCRIPTION
 
 L<Moes> is named in the homophonic tradition of L<Mousse>
@@ -116,5 +143,7 @@ and is Dutch for "something mashed".
 =head1 SEE ALSO
 
 L<http://www.heardutchhere.net/quiz2/moes.MP3>
+
+L<https://en.wiktionary.org/wiki/moes#Dutch>
 
 =cut
