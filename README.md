@@ -1,6 +1,6 @@
 # Moes
 
-Something mushy
+Something mashed
 
 # Copyright and License
 
