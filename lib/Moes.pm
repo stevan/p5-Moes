@@ -9,7 +9,7 @@ our $AUTHORITY = 'cpan:STEVAN';
 
 use UNIVERSAL::Object;
 
-our @EXPORT = ('meta', 'extends', 'has');
+our @EXPORT = ('meta', 'extends', 'with', 'has');
 
 sub import {
     shift;
@@ -26,6 +26,7 @@ sub import {
 
     *{$into.'::meta'} = sub {
         require MOP;
+
         return MOP::Class->new( name => $into );
     };
 
@@ -34,6 +35,21 @@ sub import {
 
         @{$into.'::ISA'} = @supers;
         %{$into.'::HAS'} = map %{$_.'::HAS'}, @supers
+    };
+
+    *{$into.'::with'} = sub {
+        require MOP;
+        require MOP::Internal::Util;
+
+        my @roles = @_;
+
+        @{$into.'::DOES'} = @roles;
+
+        MOP::Internal::Util::APPLY_ROLES(
+            MOP::Class->new( name => $into ),
+            \@roles,
+            to => 'class'
+        );
     };
 
     *{$into.'::has'} = sub {
